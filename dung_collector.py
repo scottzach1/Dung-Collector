@@ -3,7 +3,6 @@ import sys
 
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.support.wait import WebDriverWait
 
 DUNG_CLASS_NAME = 'dung'
 
@@ -11,8 +10,8 @@ driver = webdriver.Chrome()
 driver.get("https://dunghero.online/")
 
 
-# Wait reasonable time until elements should appear on screen.
-time.sleep(2)
+# Wait until turds appear on the screen.
+driver.implicitly_wait(10)
 dungs = driver.find_elements_by_class_name(DUNG_CLASS_NAME)
 successes = 0
 failures = 0
@@ -40,4 +39,5 @@ while dungs:
     driver.implicitly_wait(10)
     dungs = driver.find_elements_by_class_name(DUNG_CLASS_NAME)
 
+# Close the web browser session.
 driver.close()
