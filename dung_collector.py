@@ -3,7 +3,7 @@ import sys
 
 from selenium import webdriver
 from selenium.common.exceptions import StaleElementReferenceException
-
+from selenium.webdriver.support.wait import WebDriverWait
 
 DUNG_CLASS_NAME = 'dung'
 
@@ -21,11 +21,11 @@ while dungs:
     # Keep looping if we are finding more dung.
     for dung in dungs:
         try:
-            # click_action = Action(dung)
-            # dung.click()
+            # Click element using javascript.
             driver.execute_script('arguments[0].click()', dung)
             successes += 1
-            time.sleep(0.25)
+            # Sleep just enough time that the site registers events.
+            time.sleep(0.1)
             # Success if makes to here.
         except StaleElementReferenceException:
             # We only care about counting our failures here.
@@ -36,8 +36,8 @@ while dungs:
             sys.stdout.flush()
             sys.stdout.write("Success " + str(successes) + " / " + str(successes + failures) + " Total")
 
-    # Get some more dung.
+    # Get some more dung (waiting up to 10 seconds for more to appear).
+    driver.implicitly_wait(10)
     dungs = driver.find_elements_by_class_name(DUNG_CLASS_NAME)
-
 
 driver.close()
