@@ -2,8 +2,7 @@ import time
 import sys
 
 from selenium import webdriver
-from selenium.common.exceptions import StaleElementReferenceException, ElementClickInterceptedException, \
-    ElementNotInteractableException
+from selenium.common.exceptions import StaleElementReferenceException
 
 
 DUNG_CLASS_NAME = 'dung'
@@ -28,7 +27,7 @@ while dungs:
             successes += 1
             time.sleep(0.25)
             # Success if makes to here.
-        except (ElementClickInterceptedException, StaleElementReferenceException, ElementNotInteractableException):
+        except StaleElementReferenceException:
             # We only care about counting our failures here.
             failures += 1
         finally:
