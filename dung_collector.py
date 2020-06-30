@@ -28,7 +28,7 @@ while dungs:
             successes += 1
             time.sleep(0.25)
             # Success if makes to here.
-        except ElementClickInterceptedException or StaleElementReferenceException or ElementNotInteractableException:
+        except (ElementClickInterceptedException, StaleElementReferenceException, ElementNotInteractableException):
             # We only care about counting our failures here.
             failures += 1
         finally:
